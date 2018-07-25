@@ -8,57 +8,55 @@ class Star extends Component {
       star: {
         name: '',
         role: '',
-        movie: ''
+        movie: '',
+        popularity: ''
       }
     }
   }
 
-  handleNameChange = (event) => {
-  this.setState({
-    star: {
-      ...this.state.star,
-      name: event.target.value
-    }
-  })
-  }
-
-  handleRoleChange = (event) => {
+  handleChangeFor = (propertyName) => (event) => {
     this.setState({
       star: {
         ...this.state.star,
-        role: event.target.value
+        [propertyName]: event.target.value
       }
-    })
-  }
+    });
+  };
 
-  handleMovieChange = (event) => {
-    this.setState({
-      star: {
-        ...this.state.star,
-        movie: event.target.value
-      }
-    })
-  }
-
-  handleClick = () => {
+  handleSubmit = (event) => {
+    event.preventDefault();
     console.log(this.state.star);
-  }
+    this.setState({
+      star: {
+        ...this.state.star,
+        name: '',
+        role: '',
+        movie: '',
+        popularity: ''
+      }
+    });
+  };
 
   render() {
     return (
       <div className="stars">
-        <input type="text" onChange={this.handleNameChange} placeholder="Name" />
-        <input type="text" onChange={this.handleRoleChange} placeholder="Role" />
-        <input type="text" onChange={this.handleMovieChange} placeholder ="Movie" />
-        <button onClick={this.handleClick}>Submit</button>
+
+        <form onSubmit={this.handleSubmit}>
+          <input type="text" value={this.state.star.name} onChange={this.handleChangeFor('name')} placeholder="Name" />
+          <input type="text" value={this.state.star.role} onChange={this.handleChangeFor('role')} placeholder="Role" />
+          <input type="text" value={this.state.star.movie} onChange={this.handleChangeFor('movie')} placeholder="Movie" />
+          <input type="number" value={this.state.star.popularity} onChange={this.handleChangeFor('popularity')} placeholder="Popularity" />
+          <input type="submit" value="Click Me" />
+        </form>
+
         <div>
-        <p>
-         {this.state.star.name || "Christian Bale"} is famous for the role of {this.state.star.role || "Batman"} in {this.state.star.movie || "Dark Knight Rises"}
-        </p>
-      </div>
+          <p>
+            {this.state.star.name || "Christian Bale"} is famous for the role of {this.state.star.role || "Batman"} in {this.state.star.movie || "Dark Knight Rises"}. Popularity level is {this.state.star.popularity || 10} out of 10.
+          </p>
+        </div>
       </div>
 
-      )
+    )
   }
 
 }
