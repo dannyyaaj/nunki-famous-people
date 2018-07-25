@@ -33,8 +33,10 @@ class Star extends Component {
 
   handleMovieChange = (event) => {
     this.setState({
-      ...this.state.star,
-      movie: event.target.value
+      star: {
+        ...this.state.star,
+        movie: event.target.value
+      }
     })
   }
 
