@@ -1,11 +1,31 @@
 import React, { Component } from 'react';
+import StarList from '../StarList/StarList';
+import NewStar from '../NewStar/NewStar';
 
 class Star extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      star: {
+      starList: [{
+        name: 'Will Smith',
+        role: 'Chris Gardner',
+        movie: 'The Pursuit of Happyness',
+        popularity: 8
+      },
+      {
+        name: 'Keanu Reeves',
+        role: 'Neo',
+        movie: 'The Matrix',
+        popularity: 8.7
+      },
+      {
+        name: 'Benedict Cumberbatch',
+        role: 'Alan Turing ',
+        movie: 'The Imitation Game',
+        popularity: 8
+      }],
+      newStar: {
         name: '',
         role: '',
         movie: '',
@@ -14,51 +34,49 @@ class Star extends Component {
     }
   }
 
-  handleChangeFor = (propertyName) => (event) => {
-    this.setState({
-      star: {
-        ...this.state.star,
-        [propertyName]: event.target.value
-      }
-    });
-  };
+
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(this.state.star);
     this.setState({
-      star: {
-        ...this.state.star,
+      starList:
+        [
+          ...this.state.starList,
+          this.state.newStar
+        ],
+      newStar: {
+        ...this.state.newStar,
         name: '',
         role: '',
         movie: '',
         popularity: ''
       }
-    });
+    })
   };
 
   render() {
+
+    this.handleChangeFor = (propertyName) => (event) => {
+      this.setState({
+        newStar: {
+          ...this.state.newStar,
+          [propertyName]: event.target.value
+        }
+      });
+    };
+
     return (
       <div className="stars">
-
-        <form onSubmit={this.handleSubmit}>
-          <input type="text" value={this.state.star.name} onChange={this.handleChangeFor('name')} placeholder="Name" />
-          <input type="text" value={this.state.star.role} onChange={this.handleChangeFor('role')} placeholder="Role" />
-          <input type="text" value={this.state.star.movie} onChange={this.handleChangeFor('movie')} placeholder="Movie" />
-          <input type="number" value={this.state.star.popularity} onChange={this.handleChangeFor('popularity')} placeholder="Popularity" />
-          <input type="submit" value="Click Me" />
-        </form>
-
-        <div>
-          <p>
-            {this.state.star.name || "Christian Bale"} is famous for the role of {this.state.star.role || "Batman"} in {this.state.star.movie || "Dark Knight Rises"}. Popularity level is {this.state.star.popularity || 10} out of 10.
-          </p>
-        </div>
+        <NewStar
+          handleChangeFor={this.handleChangeFor}
+          handleSubmit={this.handleSubmit}
+          starList={this.state.starList}
+          newStar={this.state.newStar}
+        />
+        <StarList starList={this.state.starList} />
       </div>
-
     )
   }
-
 }
 
 export default Star;
