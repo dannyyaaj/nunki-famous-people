@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './StarList.css';
 
 class StarList extends Component {
 
@@ -11,7 +12,7 @@ class StarList extends Component {
     return (
 
       <div>
-        <ul>
+        <ul className="listOfStars">
           {arrayOfStars}
         </ul>
       </div>

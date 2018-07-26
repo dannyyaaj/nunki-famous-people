@@ -66,7 +66,7 @@ class Star extends Component {
     };
 
     return (
-      <div className="stars">
+      <div>
         <NewStar
           handleChangeFor={this.handleChangeFor}
           handleSubmit={this.handleSubmit}
